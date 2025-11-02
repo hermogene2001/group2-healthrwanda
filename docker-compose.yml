@@ -6,17 +6,17 @@ services:
     ports:
       - "8080:80"
     depends_on:
-      - groupx_db
+      - group2_db
     volumes:
       - ./src:/var/www/html
 
-  groupx_db:
+  group2_db:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: groupx_shareride_db
-      MYSQL_USER: groupx_user
-      MYSQL_PASSWORD: userpassword
+      MYSQL_DATABASE: group2_shareride_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: ""
     ports:
       - "3306:3306"
     volumes:
@@ -25,12 +25,12 @@ services:
   groupx_phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:
-      PMA_HOST: groupx_db
+      PMA_HOST: group2_db
       MYSQL_ROOT_PASSWORD: rootpassword
     ports:
       - "8081:80"
     depends_on:
-      - groupx_db
+      - group2_db
 
 volumes:
   db_data:
