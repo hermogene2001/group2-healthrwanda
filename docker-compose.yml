@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  groupx_web:
+    build: .
+    ports:
+      - "8080:80"
+    depends_on:
+      - groupx_db
+    volumes:
+      - ./src:/var/www/html
+
+  groupx_db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: groupx_shareride_db
+      MYSQL_USER: groupx_user
+      MYSQL_PASSWORD: userpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  groupx_phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: groupx_db
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "8081:80"
+    depends_on:
+      - groupx_db
+
+volumes:
+  db_data:
