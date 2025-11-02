@@ -12,7 +12,9 @@ pipeline {
         stage('Test') {
             steps {
                 echo "Test stage is running"
-                // Add your testing commands here
+                sh 'docker-compose up -d'
+                sh 'sleep 30'
+                sh 'docker-compose down'
             }
         }
         
